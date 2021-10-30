@@ -43,7 +43,7 @@ cd mac_iphone_photo_clipboard
 
 * Save the Automator workflow and call it something like "Take photo to clipboard"
 
-![Automator screenshot](images/automator.png)
+![Automator screenshot](README-images/automator.png)
 
 * Run the Automator workflow manually. 
   * Accept all of the permissions requests that pop up.
@@ -52,7 +52,7 @@ cd mac_iphone_photo_clipboard
 
 * Go to System Preferences -> Keyboard -> Shortcuts
 
-![Keyboard Shortcuts](images/keyboard_shortcuts.png)
+![Keyboard Shortcuts](README-images/keyboard_shortcuts.png)
 
 * Click "Add Shortcut" next to "Take photo to clipboard".
 * Press some keys to set your keyboard shortcut. 
