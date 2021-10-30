@@ -1,16 +1,19 @@
 #!/bin/bash
 set -eo pipefail
 # set -x
+ROOT_DIR="$(/usr/local/bin/realpath $(dirname "$0"))"
 
 # Required for bash scripts run from Automator
 export PATH=/usr/local/bin:$PATH
 
 # Make a temp directory
-PHOTO_TMPDIR=$(mktemp -d)
-cd $PHOTO_TMPDIR
+PHOTO_TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+PHOTO_DIR="$ROOT_DIR/photos/$PHOTO_TIMESTAMP"
+mkdir -p "$PHOTO_DIR"
+cd "$PHOTO_DIR"
 
 # Open the temp directory in a new Finder window
-open $PHOTO_TMPDIR
+open $PHOTO_DIR
 
 sleep 0.5
 # Reposition and resize the new Finder window to fixed coordinates
@@ -29,7 +32,7 @@ sleep 0.1
 cliclick 'rc:550,300' 'kp:page-down' 'kp:arrow-right' 'kp:enter'
 
 # Wait for first image to appear in the temp directory
-PHOTO_FILENAME="$(timeout 60 fswatch "$PHOTO_TMPDIR" --one-event || echo '')"
+PHOTO_FILENAME="$(timeout 60 fswatch "$PHOTO_DIR" --one-event || echo '')"
 if [ -z "$PHOTO_FILENAME" ]; then
   echo "Timed out while waiting for photo!" >&2
   exit 1
@@ -47,3 +50,4 @@ EOF
 osascript -e "$ASCRIPT_COPY_TO_CB"
 
 echo "Copied $PHOTO_FILENAME to clipboard"
+osascript -e "display notification \"Saved photo to $PHOTO_FILENAME and copied to clipboard.\""
