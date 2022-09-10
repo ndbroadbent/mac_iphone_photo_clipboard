@@ -28,10 +28,15 @@ EOF
 osascript -e "$ASCRIPT_RESIZE_FINDER_WINDOW"
 sleep 0.1
 
-# Manually open the "Take Photo" menu using simulated mouse and keyboard event
-cliclick 'rc:550,300' 'kp:page-down' 'kp:arrow-right' 'kp:enter'
+# Manually open the "Take Photo" menu using simulated mouse and keyboard events
+# * Right click in Finder window
+# * Type "imp" to select the "Import from iPhone" menu
+# * Press right arrow to open menu
+# * Type "tak" to select "Take Photo" menu
+# * Press enter to start "Take Photo" action
+cliclick 'rc:550,300' 't:imp' 'kp:arrow-right' 't:tak' 'kp:enter'
 
-# Wait for first image to appear in the temp directory
+# Wait for an image to appear in the temp directory
 PHOTO_FILENAME="$(timeout 60 fswatch "$PHOTO_DIR" --one-event || echo '')"
 if [ -z "$PHOTO_FILENAME" ]; then
   echo "Timed out while waiting for photo!" >&2
