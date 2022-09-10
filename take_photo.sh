@@ -34,7 +34,7 @@ sleep 0.1
 # * Press right arrow to open menu
 # * Type "tak" to select "Take Photo" menu
 # * Press enter to start "Take Photo" action
-cliclick 'rc:550,300' 't:imp' 'kp:arrow-right' 't:tak' 'kp:enter'
+cliclick 'rc:550,300' 'w:250' 't:im' 'kp:arrow-right' 't:ta' 'kp:enter'
 
 # Wait for an image to appear in the temp directory
 PHOTO_FILENAME="$(timeout 60 fswatch "$PHOTO_DIR" --one-event || echo '')"
